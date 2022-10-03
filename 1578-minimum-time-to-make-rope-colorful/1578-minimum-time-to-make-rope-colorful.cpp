@@ -23,9 +23,10 @@ public:
         for(int i=1; i<n; i++)
             for(int j=0; j<27; j++) {
                 int p1 = INT_MAX, p2 = INT_MAX;
+                int idx = colors[i]-'a';
                 
-                if(colors[i]-'a' != j)
-                    p1 = dp[i-1][colors[i]-'a'];
+                if(idx != j)
+                    p1 = dp[i-1][idx];
                 p2 = time[i] + dp[i-1][j];
                 
                 dp[i][j] = min(p1, p2);
