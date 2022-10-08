@@ -16,6 +16,8 @@ public:
                     ans = sum;
                 if(sum < target) l++;
                 else r--;
+                while (l<r && nums[l]==nums[l-1]) l++;
+                while (l<r && r<n-1 && nums[r]==nums[r+1]) r--;
             }
         }
         return ans;
