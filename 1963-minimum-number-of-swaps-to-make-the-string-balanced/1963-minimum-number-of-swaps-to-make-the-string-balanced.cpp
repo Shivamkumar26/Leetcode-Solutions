@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minSwaps(string s) {
-        int n=s.size(), o=0, c=0, mx=0, i=0;
+        int n=s.size(), i=0;
         stack<int> st;
         
         while(i<n) {
