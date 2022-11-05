@@ -7,22 +7,18 @@ class Solution {
         // move in 4 dir 
         board[r][c] = '#';
         string s = word.substr(1, word.size()-1);
-        bool t =  solve(board, s, r+1, c) || 
-                solve(board, s, r-1, c) || 
-                solve(board, s, r, c+1) || 
-                solve(board, s, r, c-1);
+        
+        bool t =  solve(board, s, r+1, c) || solve(board, s, r-1, c) || 
+                solve(board, s, r, c+1) || solve(board, s, r, c-1);
         board[r][c] = word[0];
         return t;
     }
 public:
     bool exist(vector<vector<char>>& board, string word) {
         int n = board.size(), m = board[0].size();
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                bool found = solve(board, word, i, j);
-                if(found) return true;
-            }
-        }
+        for(int i = 0; i < n; i++) 
+            for(int j = 0; j < m; j++) 
+                if(solve(board, word, i, j)) return true;
         return false;
     }
 };
@@ -35,6 +31,8 @@ a d e e
 
 a b c e s e e e f s 
 
+
+when using visited array the prob of tle and WA in these TCs
 
 [["A","A","A","A","A","A"],["A","A","A","A","A","A"],["A","A","A","A","A","A"],["A","A","A","A","A","A"],["A","A","A","A","A","A"],["A","A","A","A","A","A"]]
 "AAAAAAAAAAAAAAB"
