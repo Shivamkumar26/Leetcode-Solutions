@@ -19,12 +19,10 @@ class Solution {
 public:
     int jobScheduling(vector<int>& st, vector<int>& et, vector<int>& profit) {
         int n = st.size();
-        vector<vector<int>> data;
+        vector<vector<int>> data(n);
         vector<int> dp(n+1, -1);
         
-        for(int i = 0; i < n; i++) {
-            data.push_back({st[i], et[i], profit[i]});
-        }
+        for(int i = 0; i < n; i++) data[i] = {st[i], et[i], profit[i]};
         sort(data.begin(), data.end());
         return solve(data, 0, dp);
     }
