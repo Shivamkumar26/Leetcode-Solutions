@@ -5,7 +5,7 @@ public:
         // -1 = lost one m
         // -2 = lost more than one 
         int n = matches.size();
-        unordered_map<int, int> mp;
+        map<int, int> mp;
         
         for(int i=0; i<n; i++) {
             int w = matches[i][0];
@@ -16,16 +16,11 @@ public:
             else mp[l] = -1;
         }
         
-        vector<vector<int>> ans;
-        vector<int> w, l;
+        vector<vector<int>> ans(2);
         for(auto i=mp.begin(); i!=mp.end(); i++) {
-            if(i->second > 0) w.push_back(i->first);
-            else if(i->second == -1) l.push_back(i->first);
+            if(i->second > 0) ans[0].push_back(i->first);
+            else if(i->second == -1) ans[1].push_back(i->first);
         }
-        sort(w.begin(), w.end());
-        sort(l.begin(), l.end());
-        ans.push_back(w);
-        ans.push_back(l);
         return ans;
     }
 };
