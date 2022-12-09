@@ -10,25 +10,22 @@
  * };
  */
 class Solution {
-    void solve(TreeNode* root, int mx, int mn, int& ans) {
-        if(!root) {
-            ans = max(ans, abs(mx-mn));
-            return;
+    void solve(TreeNode* root, int mn, int mx, int& ans) {
+        if(abs(mn-mx) > ans) {
+            ans = abs(mn-mx);
         }
-        if(root->val > mx) mx = root->val;
-        if(root->val < mn) mn = root->val;
-        
-        solve(root->left, mx, mn, ans);
-        solve(root->right, mx, mn, ans);
+        if(!root) return;
+        mn = min(mn, root->val);
+        mx = max(mx, root->val);
+        solve(root->left, mn, mx, ans);
+        solve(root->right, mn, mx, ans);
     }
 public:
+    //mn, mx 
     int maxAncestorDiff(TreeNode* root) {
-        
-        // root to leaf mei max and min find out 
-        // global max(diff) 
-        
-        int maxx = 0, minn = INT_MAX, ans = 0;
-        solve(root, maxx, minn, ans);
+        int mn = root->val, mx = root->val;
+        int ans = 0;
+        solve(root, mn, mx, ans);
         return ans;
     }
 };
