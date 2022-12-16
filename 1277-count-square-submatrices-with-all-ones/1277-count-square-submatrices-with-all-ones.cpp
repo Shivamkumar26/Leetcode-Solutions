@@ -40,7 +40,7 @@ public:
         
         for(int i=0; i<n; i++) {
             for(int j=0; j<m; j++) {
-                if(i>0 && j>0 && nums[i][j]>0) {
+                if(i>0 && j>0 && nums[i][j]!=0) {
                    nums[i][j] = min({nums[i-1][j] , nums[i][j-1] , nums[i-1][j-1]})+1; 
                 }
                 ans += nums[i][j];
