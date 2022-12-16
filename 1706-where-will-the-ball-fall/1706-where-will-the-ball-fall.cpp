@@ -1,25 +1,22 @@
 class Solution {
-public:
-    int solve(int r, int c, vector<vector<int>>& nums) {
-        if(r == nums.size()) return c;
+    int path(int r, int c, vector<vector<int>>& nums){
+        if(r==nums.size()) return c;
+        if(c<0 || c==nums[0].size()) return -1;
         
-        if(nums[r][c] == 1) {
-            if(c+1 >= nums[0].size() || nums[r][c+1] == -1)
-                return -1;
-            return solve(r+1, c+1, nums);
-        }
-        else {
-            if(c-1 < 0 || nums[r][c-1] == 1) 
-                return -1;
-            return solve(r+1, c-1, nums);
-        }
+        if(nums[r][c]==1 && (c+1>=nums[0].size() || nums[r][c+1]==-1))
+            return -1;
+        if(nums[r][c]==-1 && (c-1<0 || nums[r][c-1]==1))
+            return -1;
+        
+        return nums[r][c] == 1 ? path(r+1, c+1, nums) : path(r+1, c-1, nums);
     }
+public:
     vector<int> findBall(vector<vector<int>>& nums) {
-        int n = nums.size(), m = nums[0].size();
-        vector<int> ans(m);
-        for(int j=0; j<m; j++) {
-            ans[j] = solve(0, j, nums);
+        int r=nums.size(), c=nums[0].size();
+        vector<int>dp(c);
+        for(int i=0; i<c; i++){
+            dp[i] = path(0, i, nums);
         }
-        return ans;
+        return dp;
     }
 };
