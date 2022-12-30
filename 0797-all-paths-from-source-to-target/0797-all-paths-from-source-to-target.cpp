@@ -16,8 +16,8 @@ public:
                      
                 for(auto &it: graph[v.back()]) {
                     vector<int> copy = v;
-                    if(find(begin(v), end(v), it) != v.end())
-                        continue;
+                    // if(find(begin(v), end(v), it) != v.end())
+                    //     continue;
                     copy.push_back(it);
                     q.push(copy);
                 }
