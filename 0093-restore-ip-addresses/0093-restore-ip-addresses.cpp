@@ -1,8 +1,8 @@
 class Solution {
     void solve(int ind, string cur, int ip_count, string& s, vector<string>& ans) {
         if(ip_count > 4) return;
-        if(ip_count == 4 && ind == s.size()) 
-            ans.push_back(cur);
+        if(ip_count == 4 && ind == s.size()) {
+            ans.push_back(cur); return; }
         
         for(int i=0; i<3; i++) {
             if(ind+i >= s.size()) break;
