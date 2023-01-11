@@ -5,7 +5,7 @@ class Solution {
         for(auto i : adj[child]) {
             if(i == par) continue;
             auto x = solve(i, child, hasApple, adj);
-            v.first += (2 + x.first) * x.second;
+            v.first += (1 + x.first) * x.second;
             v.second |= x.second;
         }
         return v;
@@ -18,6 +18,6 @@ public:
             adj[edges[i][0]].push_back(edges[i][1]);
             adj[edges[i][1]].push_back(edges[i][0]);
         }
-        return solve(0, 0, hasApple, adj).first;
+        return 2*solve(0, 0, hasApple, adj).first;
     }
 };
