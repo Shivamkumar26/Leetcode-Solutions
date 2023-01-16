@@ -1,46 +1,60 @@
-struct Node{
+struct Node {
     Node* links[26];
     bool flag = false;
     
-    bool contains(char ch) { return (links[ch-'a'] != NULL); }
-    void addlink(char ch, Node* node) { links[ch-'a'] = node; }
-    Node* get(char ch) { return links[ch-'a']; }
-    
-    void setEnd() { flag = true; }
-    bool isEnd() { return flag; }
+    bool contains(char ch) {
+        return links[ch-'a']!=NULL;
+    }
+    void add(char ch, Node* node) {
+        links[ch-'a'] = node; 
+    }
+    Node* get(char ch) {
+        return links[ch-'a'];
+    }
+    void marktrue() {
+        flag = true;
+    }
+    bool isEnd() {
+        return flag == true;
+    }  
 };
 
 class Trie {
-    Node* root;
 public:
-    Trie() { root = new Node(); }
+    Node* root;
+    Trie() {
+        root = new Node();
+    }
     
-    
-    // all functions are almost same... think and code... 
     void insert(string word) {
         Node* node = root;
         for(int i=0; i<word.size(); i++) {
-            if(!node->contains(word[i]))
-                node->addlink(word[i], new Node());
+            if(!node->contains(word[i])) {
+                node->add(word[i], new Node());
+            }
             node = node->get(word[i]);
         }
-        node->setEnd();
+        node->marktrue();
     }
     
     bool search(string word) {
         Node* node = root;
         for(int i=0; i<word.size(); i++) {
-            if(!node->contains(word[i])) return false;
+            if(!node->contains(word[i])) {
+                return false;
+            }
             node = node->get(word[i]);
         }
         return node->isEnd();
     }
     
-    bool startsWith(string prefix) {
+    bool startsWith(string word) {
         Node* node = root;
-        for(int i=0; i<prefix.size(); i++) {
-            if(!node->contains(prefix[i])) return false;
-            node = node->get(prefix[i]);
+        for(int i=0; i<word.size(); i++) {
+            if(!node->contains(word[i])) {
+                return false;
+            }
+            node = node->get(word[i]);
         }
         return true;
     }
