@@ -9,19 +9,14 @@ using namespace std;
 class Solution {
   public:
     vector<long long> nextLargerElement(vector<long long> &arr, int n){
-        // Your code here
         stack<long long> s;      
-        vector<long long> ans;
+        vector<long long> ans(n);
         
         for(int i = n-1; i>=0; i--) {
             while(s.size() && s.top() <= arr[i]) s.pop();
-            
-            if(s.size()) ans.push_back(s.top());
-            else ans.push_back(-1);
-            
+            ans[i] = (s.size() ? s.top() : -1);
             s.push(arr[i]);
         }
-        reverse(ans.begin(), ans.end());
         return ans;
     }
 };
