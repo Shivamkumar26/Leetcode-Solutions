@@ -29,13 +29,11 @@ public:
             while(n--) {
                 temp = q.front();
                 q.pop();
-                if(n==0) temp->next = NULL;
-                else temp->next = q.front();
+                temp->next = ((n==0) ? NULL : q.front());
                 
                 if(temp->left) q.push(temp->left);
                 if(temp->right) q.push(temp->right);
             }
-            // temp->next = NULL;
         }
         return root;
     }
