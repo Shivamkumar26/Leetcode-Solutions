@@ -1,25 +1,30 @@
 class Solution {
-    int solve(vector<pair<int, int>>& nums, int i, int prevAge, vector<vector<int>>& dp, int n) {
-        if(i>=n) return 0;
-        if(dp[i][prevAge]!=-1) return dp[i][prevAge];
+    int solve(int i, vector<pair<int, int>>& nums, int prev, vector<vector<int>>& dp) {
+        if(i == nums.size()) return 0;
+        if(dp[i][prev]!=-1) return dp[i][prev];
         
-        int pick = 0, np = 0;
-        if(nums[i].second >= prevAge) {
-            pick = nums[i].first + solve(nums, i+1, nums[i].second, dp, n);
-        }
-        np = solve(nums, i+1, prevAge, dp, n);
-        return dp[i][prevAge] = max(pick, np);
+        int pick = 0, notPick = 0;
+        if(prev <= nums[i].second) 
+            pick = nums[i].first + solve(i+1, nums, nums[i].second, dp);
+        notPick = solve(i+1, nums, prev, dp);
+        return dp[i][prev] = max(pick, notPick);
     }
 public:
     int bestTeamScore(vector<int>& scores, vector<int>& ages) {
-        int n = scores.size();
         vector<pair<int, int>> nums;
-        vector<vector<int>> dp(n+1, vector<int>(1001, -1));
-        
-        for(int i=0; i<n; i++) 
+        for(int i=0; i<scores.size(); i++) 
             nums.push_back({scores[i], ages[i]});
-        
         sort(nums.begin(), nums.end());
-        return solve(nums, 0, 0, dp, n);
+        vector<vector<int>> dp(ages.size()+1, vector<int>(1001, -1));
+        return solve(0, nums, 0, dp);
     }
 };
+
+/*
+
+scores, ages
+sort
+
+prev <
+
+*/
