@@ -1,16 +1,9 @@
 class Solution {
-    void bfs(int r, int c, vector<vector<int>>& vis, vector<vector<char>>& grid) {
-        queue<pair<int,int>> q;
+    void dfs(int r, int c, vector<vector<int>>& vis, vector<vector<char>>& grid) {
         int n = grid.size();
         int m = grid[0].size();
-        
-        q.push({r,c});
+
         vis[r][c] = 1;
-        
-        while(!q.empty()) {
-            int r = q.front().first;
-            int c = q.front().second;
-            q.pop();
             
             int dr[] = {1, -1, 0, 0};
             int dc[] = {0, 0, -1, 1};
@@ -19,11 +12,9 @@ class Solution {
                 int nc = c + dc[i];
                 if (nr >= 0 && nc >= 0 && nr < n && nc < m 
                 && grid[nr][nc] == '1' && vis[nr][nc] == 0) {
-                    vis[nr][nc]=1;
-                    q.push({nr, nc});
+                    dfs(nr, nc, vis, grid);
                 }
             }
-        }
     }
   public:
     int numIslands(vector<vector<char>>& grid) {
@@ -35,7 +26,7 @@ class Solution {
         for(int i = 0; i<n; i++)
             for(int j = 0; j<m; j++)
                 if(!vis[i][j] && grid[i][j]=='1') {
-                    bfs(i, j, vis, grid);
+                    dfs(i, j, vis, grid);
                     ans++;
                 }
         return ans;
