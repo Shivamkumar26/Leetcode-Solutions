@@ -31,42 +31,38 @@ public:
 class Solution {
   public:
     long long solve(int n, vector<int> &a, vector<int> &b) {
-        long long diffOfArr = 0;
-        int oddCountIna = 0, evenCountIna = 0;
-        int oddCountInb = 0, evenCountInb = 0;
+        long long diffOfArr = 0, count = 0;
+        int oddCountIna = 0, evenCountIna = 0, oddCountInb = 0, evenCountInb = 0;
+        vector<int> aeven, beven, aodd, bodd;
+        
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
         
         for(int i=0; i<n; i++) {
             diffOfArr+=(a[i]-b[i]);
-            (a[i]%2) ? oddCountIna++ : evenCountIna++;
-            (b[i]%2) ? oddCountInb++ : evenCountInb++;
+            if(a[i]%2) {
+                oddCountIna++;
+                aodd.push_back(a[i]);
+            } else {
+                evenCountIna++;
+                aeven.push_back(a[i]);
+            }
+            if(b[i]%2) { 
+                oddCountInb++;
+                bodd.push_back(b[i]);
+            } else {
+                evenCountInb++;
+                beven.push_back(b[i]);
+            }
         }
-        if(diffOfArr!=0 || 
-        (evenCountIna!=evenCountInb) || (oddCountIna!=oddCountInb)) 
+        if(diffOfArr!=0 || (evenCountIna!=evenCountInb) || (oddCountIna!=oddCountInb)) 
             return -1;
-            
-            
-        vector<int> aeven, beven, aodd, bodd;
-        long long count = 0;
         
-        for(int i=0; i<n; i++) {
-            if(a[i]%2) aodd.push_back(a[i]);
-            else aeven.push_back(a[i]);
-            
-            if(b[i]%2) bodd.push_back(b[i]);
-            else beven.push_back(b[i]);
-        }
-        
-        sort(aeven.begin(), aeven.end());
-        sort(beven.begin(), beven.end());
-        sort(aodd.begin(), aodd.end());
-        sort(bodd.begin(), bodd.end());
-        
-        for(int i=0; i<aeven.size(); i++) {
-            count+=(long long)(abs(aeven[i]-beven[i]));
-        }
-        for(int i=0; i<aodd.size(); i++) {
+        for(int i=0; i<aeven.size(); i++) 
+            count+=(long long)(abs(aeven[i]-beven[i])); 
+        for(int i=0; i<aodd.size(); i++) 
             count+=(long long)(abs(aodd[i]-bodd[i]));
-        }
+            
         return (long long)count/4;
     }
 };
