@@ -9,56 +9,21 @@ public:
         for(auto i: mp) pq.push({i.second, i.first});
 
         string ans = "";
-        while(pq.size() > 1) {
-            auto m1 = pq.top();
-            pq.pop();
-            auto m2 = pq.top();
-            pq.pop();
 
-            ans += m1.second;
-            ans += m2.second;
-            m1.first--;
-            m2.first--;
-
-            if(m1.first) pq.push(m1);
-            if(m2.first) pq.push(m2);
+        auto block = pq.top();
+        pq.pop();
+        ans += block.second;
+        block.first--;
+        while(pq.size()) {
+            auto temp = pq.top();
+            ans += temp.second;
+            temp.first--;
+            pq.pop();
+            if(block.first > 0)
+                pq.push(block);
+            block = temp;
         }
-        if(pq.size()==1) {
-            if(pq.top().first-1 > 0) return "";
-            ans += pq.top().second;
-        }
+        if(block.first > 0) return "";
         return ans;
     }
 };
-/*
-
-a a a a b b b c c c 
-
-acbcacbaba
-
-
-bababaa
-
-a-4
-b-3
-c-3
-
-abababa
-
-cbcbcb
-
-acacacaca
-
-a-1
-b-0
-c-0
-
-abcabcabca
-
-
-aaaabbbbb
-
-ba b ab cac ac
-
-
-*/
