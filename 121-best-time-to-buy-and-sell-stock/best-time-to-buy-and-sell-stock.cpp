@@ -1,16 +1,27 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& nums) {
-        int buy = nums[0], sell = nums[0], ans = 0;
-        for(int i=1; i<nums.size(); i++) {
-           if(nums[i] < buy) {
-               ans = max(ans, sell-buy);
-               buy = nums[i];
-               sell = nums[i];
+    int maxProfit(vector<int>& prices) {
+        int b = prices[0], s = -1, mx = 0;
+        for(int i=1; i<prices.size(); i++) {
+            s = max(s, prices[i]);
+           if(b > prices[i]) {
+               b = prices[i];
+               s=-1;
            }
-           sell = max(sell, nums[i]);
-           ans = max(ans, sell-buy);
+            mx = max(mx, s-b);
+        //cout << "b s mx " << b << " " << s << " " << mx << endl;
         }
-        return ans > 0 ? ans : 0;
+        return mx;
     }
 };
+
+/*
+
+7 1 5 3 6 4
+  b     s
+
+buy -> minimize 
+sell -> maximize
+buy should come before sell
+
+*/
