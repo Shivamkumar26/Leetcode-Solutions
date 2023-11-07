@@ -1,38 +1,36 @@
 class Solution {
-    // see video in notes for explaination
-    class comp {
-        public :
-            bool operator()(const pair<char, int>& a, const pair<char, int>& b) {
-                return a.second < b.second; 
-            }
-    };
 public:
     string frequencySort(string s) {
-        // char, int 
-        // sort on the basis of max int 
-
-        // map each char with freq
+        int n = s.size();
         unordered_map<char, int> mp;
-        for(int i=0; i<s.size(); i++) mp[s[i]]++;
-
-        // sort in priority queue
-        priority_queue<pair<char, int>, vector<pair<char, int>>, comp> pq;
-        for(auto it: mp)  {
-            pair<char, int> p = {it.first, it.second};
-            pq.push(p);
-        }
-
-        // making ans;
-        int i = 0;
+        priority_queue<pair<int, char>> pq;
+        
+        for(int i=0; i<n; i++) mp[s[i]]++;
+        for(auto i=mp.begin(); i!=mp.end(); i++) 
+            pq.push({i->second, i->first});
+        
+        s="";
         while(pq.size()) {
-            char c = pq.top().first;
-            int f = pq.top().second;
-            while(f) {
-                s[i++] = c;
-                f--;
-            }
+            char ch = pq.top().second;
+            int freq = pq.top().first;
+            while(freq--) s+=ch;
             pq.pop();
         }
         return s;
     }
 };
+
+/*
+
+freq store
+
+A - 1 
+a - 1
+b - 2
+
+
+2-b
+1-A
+1-a
+
+*/
