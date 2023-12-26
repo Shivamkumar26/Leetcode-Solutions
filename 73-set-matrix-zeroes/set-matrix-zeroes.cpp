@@ -1,47 +1,36 @@
 class Solution {
 public:
-    void setZeroes(vector<vector<int>>& matrix) {
-        int rows = matrix.size(), cols = matrix[0].size();
-        bool firstRowZero = false, firstColZero = false;
-
-        for (int i = 0; i < cols; i++) {
-            if (matrix[0][i] == 0) {
-                firstRowZero = true;
-                break;
-            }
-        } //first row zero
-
-        for (int i = 0; i < rows; i++) {
-            if (matrix[i][0] == 0) {
-                firstColZero = true;
-                break;
-            }
-        } //first col zero
-
-
-        for (int i = 1; i < rows; i++) {
-            for (int j = 1; j < cols; j++) {
-                if (matrix[i][j] == 0) {
-                    matrix[i][0] = 0;
-                    matrix[0][j] = 0;
-                }
+    void setZeroes(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size();
+        vector<int> r0(m, 1), c0(n, 1);
+        
+        if(grid[0][0]==0) r0[0]=0, c0[0]=0;
+        for(int i=1; i<m; i++) {
+            if(grid[0][i]==0) r0[i]=0, c0[0]=0;
+        }
+        for(int i=1; i<n; i++) {
+            if(grid[i][0]==0) c0[i]=0, r0[0]=0;
+        }
+        
+        for(int i=1; i<n; i++) {
+            for(int j=1; j<m; j++) {
+                if(grid[i][j]==0) r0[j]=0, c0[i]=0;
             }
         }
-        for (int i = 1; i < rows; i++) {
-            for (int j = 1; j < cols; j++) {
-                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
-                    matrix[i][j] = 0;
-                }
+        
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
+                if(r0[j]==0 || c0[i]==0) grid[i][j] = 0;
             }
         }
-
-        if (firstRowZero)
-            for (int i = 0; i < cols; i++) {
-                matrix[0][i] = 0;
-            }
-        if (firstColZero) 
-            for (int i = 0; i < rows; i++) {
-                matrix[i][0] = 0;
-            }
+        
+        for(int i=0; i<n; i++) {
+            cout << c0[i] << " ";
+        }
+        cout << "\n";
+        for(int j=0; j<m; j++) {
+            cout << r0[j] << " ";
+        }
+        //return grid;
     }
 };
