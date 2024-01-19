@@ -15,8 +15,6 @@ public:
             }
         }
         
-        int res = INT_MAX;
-        for(int i=0; i<n; i++) res=min(res, dp[0][i]);
-        return res;
+        return *min_element(dp[0].begin(), dp[0].end());
     }
 };
