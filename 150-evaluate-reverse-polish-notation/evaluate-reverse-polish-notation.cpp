@@ -9,7 +9,6 @@ public:
             if(nums[i]=="+" || nums[i]=="-" || nums[i]=="*" || nums[i]=="/") {
                 ll n1 = st.top(); st.pop();
                 ll n2 = st.top(); st.pop();
-                ans = 0;
                
                 if (nums[i] == "+") ans = n1 + n2;
                 else if (nums[i] == "-") ans = n2 - n1;
