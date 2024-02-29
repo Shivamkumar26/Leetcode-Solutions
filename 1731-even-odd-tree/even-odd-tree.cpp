@@ -19,24 +19,21 @@ public:
         
         while(q.size()) {
             int n = q.size();
-            vector<int> arr;
+            int prev = (level%2) ? INT_MAX : INT_MIN;
             
             for(int i=0; i<n; i++) {
                 TreeNode* node = q.front();
-                arr.push_back(node->val);
+                if(level % 2 == 0) {
+                    if(prev >= node->val || node->val % 2 == 0) return false;
+                    prev = node->val;
+                } 
+                else{
+                    if(prev <= node->val || node->val % 2 == 1) return false;
+                    prev = node->val;
+                }
                 q.pop();
                 if(node->left) q.push(node->left);
                 if(node->right) q.push(node->right);
-            }
-            if(level % 2 == 0) {
-                if(arr[0]%2 == 0) return false;
-                for(int i=1; i<arr.size(); i++) 
-                    if(arr[i]<=arr[i-1] || arr[i]%2==0) return false;
-            }
-            else {
-                if(arr[0]%2 == 1) return false;
-                for(int i=1; i<arr.size(); i++) 
-                    if(arr[i]>=arr[i-1] || arr[i]%2) return false;
             }
             level++;
         }
