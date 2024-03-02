@@ -1,22 +1,18 @@
 class Solution {
-    int solve(vector<int>& nums, int st) {
-        int ans = 0;
-        int k = 1;
-        for(int i=st; i<nums.size(); i++) 
-            ans += (nums[i]*(k++));
-        return ans;
+    int solve(int i, int t, vector<int>& nums, vector<vector<int>>& dp) {
+        int n = nums.size();
+        if(i>=n) return 0;
+        if(dp[i][t]!=-1) return dp[i][t];
+        
+        return dp[i][t] = max(solve(i+1, t, nums, dp), 
+                              nums[i]*t + solve(i+1, t+1, nums, dp));
     }
 public:
     int maxSatisfaction(vector<int>& nums) {
         int n = nums.size();
+        vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
         sort(nums.begin(), nums.end());
-        if(nums[n-1] < 0) return 0;
         
-        int ans = 0;
-        for(int i=0; i<n; i++) {
-            ans = max(solve(nums, i), ans);
-            if(nums[i]>0) break;
-        }
-        return ans;
+        return max(0, solve(0, 1, nums, dp));
     }
 };
