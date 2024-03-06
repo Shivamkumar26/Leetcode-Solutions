@@ -11,19 +11,26 @@
 class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
-        vector<pair<int , ListNode*>> v;
-        ListNode* temp = head;
-        while(temp) {
-            v.push_back({temp->val, temp});
-            temp = temp->next;
-        }
-        sort(v.begin(), v.end());
-        ListNode* dummy = new ListNode(-1);
-        temp = dummy;
-        for(int i=0; i<v.size(); i++) {
-            temp->next = v[i].second;
-            temp = temp->next;
-            temp->next = NULL;
+        ListNode* dummy = new ListNode(-5001);
+        dummy->next = head;
+        
+        ListNode* c = head, *prev = dummy;
+        while(c) {
+            if(prev->val <= c->val) {
+                prev = c;
+                c = c->next;
+            }
+            else {
+                prev->next = c->next;
+                ListNode* trav = dummy;
+                while(trav->next && trav->next->val < c->val) {
+                    trav = trav->next;
+                }
+                ListNode* n = trav->next;
+                trav->next = c;
+                c->next = n;
+                c = prev->next; 
+            }
         }
         return dummy->next;
     }
