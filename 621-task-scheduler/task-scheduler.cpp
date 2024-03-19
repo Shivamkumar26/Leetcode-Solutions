@@ -2,12 +2,12 @@ class Solution {
 public:
     int leastInterval(vector<char>& nums, int k) {
         int n = nums.size();
-        unordered_map<char, int> mp;
-        for(int i=0; i<n; i++) mp[nums[i]]++;
+        vector<int> mp(26, 0);
+        for(int i=0; i<n; i++) mp[nums[i]-'A']++;
 
         priority_queue<int> pq;
-        for(auto i=mp.begin(); i!=mp.end(); i++)
-        pq.push(i->second);
+        for(int i=0; i<mp.size(); i++)
+        if(mp[i]>0) pq.push(mp[i]);
 
         int ans = 0;
         while(pq.size()) {
