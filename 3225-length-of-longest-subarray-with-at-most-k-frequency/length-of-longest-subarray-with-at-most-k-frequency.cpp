@@ -14,7 +14,6 @@ public:
                     l++;
                 }
             }
-            else ans = max(ans, i-l+1);
             ans = max(ans,i-l+1);
         }
         return ans;
