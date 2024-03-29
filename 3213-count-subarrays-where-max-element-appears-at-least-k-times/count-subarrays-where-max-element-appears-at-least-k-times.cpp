@@ -8,10 +8,9 @@ public:
         for(int i=0; i<n; i++) {
             if(nums[i]==mx) count++;
             if(count >= k) {
-                ans += (n-i);
                 while(count >= k) {
+                    ans += (n-i);
                     if(nums[l]==mx) count--;
-                    else ans += (n-i);
                     l++;
                 }
             }
