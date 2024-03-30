@@ -18,7 +18,7 @@ class Solution {
     }
     int countGreaterK(vector<int>& nums, int k) {
         unordered_map<int, int> mp;
-        int n = nums.size(), l = 0, count = 0, ans = 0;
+        int n = nums.size(), l = 0, ans = 0;
 
         for(int i=0; i<n; i++) {
             mp[nums[i]]++;
@@ -36,11 +36,7 @@ class Solution {
 public:
     int subarraysWithKDistinct(vector<int>& nums, int k) {
         int n = nums.size();
-        long long tot = n*(n+1)/2;
-        int gt = countGreaterK(nums, k);
-        int lt = countSmallerK(nums, k);
-        cout << gt << " -gt lt- " << lt << endl;
-        return tot - gt - lt;
+        return countGreaterK(nums, k-1) - countGreaterK(nums, k);
     }
 };
 /*
