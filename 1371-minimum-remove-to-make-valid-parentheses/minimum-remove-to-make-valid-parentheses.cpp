@@ -6,21 +6,17 @@ public:
         for(int i=0; i<n; i++) {
             if(s[i]==')') cl++;
             else if(s[i]=='(') op++;
-            if(cl > op) {
-                cl--;
-            }
-            else {
-                ans += s[i];
-            }
-        }
-        n = ans.size();
-        op = 0, cl = 0;
 
-        cout << ans << " \n";
-        s="";
+            if(cl > op) cl--;
+            else ans += s[i];
+        }
+        n = ans.size(), op = 0, cl = 0;
+        s = "";
+
         for(int i=n-1; i>=0; i--) {
             if(ans[i]=='(') cl--;
             else if(ans[i]==')') cl++;
+            
             if(cl >= 0) s += ans[i];
             else cl=0;
         }
