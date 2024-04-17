@@ -15,7 +15,7 @@ class Solution {
         if(!root->left && !root->right) {
             s += (root->val + 'a');
             reverse(s.begin(), s.end());
-            if(ans == "" || lexicographical_compare(s.begin(), s.end(), ans.begin(), ans.end())) 
+            if(ans == "" || s < ans) 
                 ans = s;
             return;
         }
