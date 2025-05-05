@@ -2,26 +2,24 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
-        vector<int> ans(n);
-        vector<int> pre, suf(n);
+        vector<int> suff(n, 0);
+        suff[n-1] = nums[n-1];
 
+        //  24 24 12 4
+        // 24 12 8 6
+        for(int i=n-2; i>=0; i--) {
+            suff[i] = suff[i+1]*nums[i];
+            cout << suff[i] << " ";
+        }
+
+        cout << endl;
+        vector<int> res(n);
+        int pre = 1;
         for(int i=0; i<n; i++) {
-            if(i==0) pre.push_back(nums[i]);
-            else pre.push_back(nums[i]*pre[i-1]);
+            if(i+1 < n) res[i] = pre*suff[i+1];
+            else res[i] = pre;
+            pre = pre*nums[i];
         }
-
-        for(int i=n-1; i>=0; i--) {
-            if(i==n-1) suf[n-1] = nums[n-1];
-            else suf[i] = nums[i]*suf[i+1];
-        }
-
-        for(int i=0; i<n; i++) {
-            if(i==0) ans[i] = suf[1];
-            else if(i==n-1) ans[i] = pre[n-2];
-            else {
-                ans[i] = pre[i-1]*suf[i+1];
-            }
-        }
-        return ans;
+        return res;
     }
 };
