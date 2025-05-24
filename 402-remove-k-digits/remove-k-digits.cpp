@@ -20,9 +20,9 @@ public:
             k--;
         }
 
-
         if(st.size() == 0) return "0";
 
+        //making res ans
         while(st.size()){
             res.push_back(st.top()+'0');
             st.pop();
@@ -32,7 +32,7 @@ public:
             res.pop_back();
         }
 
-        if(res == "") return "0";
+        if(res == "") return "0"; //if all "000"
         reverse(res.begin(), res.end());
         return res;
     }
