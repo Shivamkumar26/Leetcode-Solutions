@@ -3,10 +3,9 @@ public:
     int minEatingSpeed(vector<int>& nums, int h) {
         int n = nums.size();
 
-        int l = 0, r = INT_MAX, ans = INT_MAX;
+        int l = 1, r = INT_MAX, ans = INT_MAX;
         while(l <= r) {
             int mid = (r-l)/2 + l;
-            if(mid == 0) break;
             int time = 0;
             for(int i=0; i<n; i++) {
                 time += nums[i]/mid;
